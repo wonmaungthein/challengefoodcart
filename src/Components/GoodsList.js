@@ -30,8 +30,7 @@ const goodsArray = goodsList.map(function(good) {
   return (
     <div key={good.name}>
       <h3>
-        {good.name} - ${good.price} {good.type}{" "}
-        <Button onClick={}> Add the item </Button>{" "}
+        {good.name} - ${good.price} {good.type} <Button> Add the item </Button>{" "}
         <Button> Remove the item </Button>
       </h3>{" "}
     </div>
