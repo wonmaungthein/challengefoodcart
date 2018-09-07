@@ -3,6 +3,19 @@ import Button from "react-bootstrap/lib/Button";
 import { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 
+const counterStyle = {
+  border: 2,
+  background: "yellow",
+  height: 15,
+  width: 50,
+  padding: 5,
+  fontSize: 15
+};
+
+const align = {
+  paddingTop: 20
+};
+
 const goodsList = [
   {
     name: "Peas",
@@ -26,17 +39,6 @@ const goodsList = [
   }
 ];
 
-const goodsArray = goodsList.map(function(good) {
-  return (
-    <div key={good.name}>
-      <h3>
-        {good.name} - ${good.price} {good.type} <Button> Add the item </Button>{" "}
-        <Button> Remove the item </Button>
-      </h3>{" "}
-    </div>
-  );
-});
-
 // class Busket extends Component {
 //   constructor(props) {
 //     super(props);
@@ -56,25 +58,65 @@ export class GoodsList extends Component {
   constructor(props) {
     super(props);
     this.state = { counter: 0 };
-
-    this.multiplyTwice = this.multiplyTwice.bind(this);
+    // this.multiplyTwice = this.multiplyTwice.bind(this);
   }
 
-  multiplyTwice(e) {
-    this.setState({ counter: this.state.counter + 1 });
-  }
+  increment = () => {
+    let currentCount = this.state.counter;
+    this.setState({ counter: ++currentCount });
+  };
+
+  decrease = () => {
+    let currentCount = this.state.counter;
+    if (this.state.counter > 0) {
+      this.setState({
+        counter: --currentCount
+      });
+    }
+  };
+
+  GoodsArray = goodsList.map(function(item) {
+    return (
+      <div key={item.name}>
+        <h3>
+          <div>
+            {item.name} - ${item.price} {item.type}
+            <Button> Add the item </Button>
+            <Button> Reduce the item </Button>
+          </div>
+        </h3>{" "}
+      </div>
+    );
+  });
+
   render() {
     return (
       <div>
         <div className="App-intro">
-          <div className="firstCol">{goodsArray} </div>
-          <div className="secondCol" />
+          <div className="firstCol" />
+          <div className="secondCol">
+            {this.GoodsArray}
+            <div style={align} className="firstItem">
+              {goodsList[0].name}
+              <Button onClick={this.increment}> Add the item </Button>{" "}
+              <Button onClick={this.decrease}> reduce the item </Button>{" "}
+              <span style={counterStyle}>{this.state.counter}</span>
+            </div>
+            <div style={align} className="secondItem">
+              {goodsList[1].name}
+              <Button onClick={this.increment}> Add the item </Button>{" "}
+              <Button onClick={this.decrease}> reduce the item </Button>{" "}
+              <span style={counterStyle}>{this.state.counter}</span>
+            </div>
+          </div>
           <div className="thirdCol" />
         </div>
       </div>
     );
   }
 }
+
+//
 
 // // This is accessing Realtime exchange rate;
 // endpoint = "live";
